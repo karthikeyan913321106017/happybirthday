@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday</title>
+
+<style>
+
+body{
+margin:0;
+padding: 0%;
+background: linear-gradient(45deg,#ff5f6d,#ffc371,#6a11cb,#2575fc);
+background-size:400% 400%;
+animation:bgmove 10s infinite alternate;
+color:white;
+text-align:center;
+font-family:Arial;
+overflow:hidden;
+}
+
+@keyframes bgmove{
+0%{background-position:left;}
+100%{background-position:right;}
+}
+
+h1{
+margin-top:120px;
+font-size:55px;
+position:relative;
+z-index:2;
+}
+
+button{
+padding:15px 30px;
+font-size:20px;
+background:#ff4081;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+position:relative;
+z-index:2;
+}
+
+#message{
+display:none;
+font-size:24px;
+margin-top:20px;
+position:relative;
+z-index:2;
+max-width:600px;
+margin-left:auto;
+margin-right:auto;
+line-height:1.5;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 style="color: rgb(226, 177, 226);">🎂 Happy Birthday Pavithra 🎂</h1>
+
+<button onclick="start()">Click Surprise</button>
+
+<div id="message" style="color:burlywood; font-style: italic;">
+✨ You are one of the most wonderful person I know.  
+Your smile can brighten even the darkest days.  
+I hope this little surprise makes you smile today.  
+Wishing you a day full of happiness and beautiful moments.  
+Happy Birthday! 🎂💖
+
+<h3 style="color: #ffc371;font-style: italic;">Treat must where choice is yours 😁</h3>
+</div>
+
+<audio id="music" src="./Butta Bomma Full Song With Telugu Lyrics_ Maa Paata Mee Nota _ Ala Vaikunthapurramuloo _ Allu Arjun-trim.mp3"></audio>
+
+<canvas id="c"></canvas>
+
+<script>
+
+let canvas = document.getElementById("c");
+let ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles=[];
+
+function start(){
+
+document.getElementById("music").play();
+
+document.getElementById("message").style.display="block";
+
+for(let i=0;i<300;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*12,
+vy:(Math.random()-0.5)*12,
+life:100,
+color:`hsl(${Math.random()*360},100%,60%)`
+});
+}
+
+}
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+ctx.fillStyle="rgba(0,0,0,0.2)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+for(let i=0;i<particles.length;i++){
+
+let p=particles[i];
+
+p.x+=p.vx;
+p.y+=p.vy;
+p.life--;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,3,0,Math.PI*2);
+ctx.fillStyle=p.color;
+ctx.fill();
+
+if(p.life<=0){
+particles.splice(i,1);
+}
+
+}
+
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
